@@ -1,1 +1,157 @@
+->spirally traversing a matrix
 
+public static void traverse(int[][] arr){
+    int n = arr.length;
+    int m = arr[0].length;
+    int rmin=0,rmax=n-1;
+    int cmin=0,cmax=m-1;
+    int tel=n*m;
+    while(tel>0){
+        for(int i=rmin;i<=rmax && tel>0;i++){
+            System.out.println(arr[i][cmin]);
+            tel--;
+        }
+        cmin++;
+        for(int j=cmin;j<=cmax && tel>0;j++){
+            System.out.println(arr[rmax][j]);
+            tel--;
+        }
+        rmax--;
+        for(int i=rmax;i>=rmin && tel>0;i--){
+            System.out.println(arr[i][cmax]);
+            tel--;
+        }
+        cmax--;
+        for(int j=cmax;j>=cmin && tel>0;j--){
+            System.out.println(arr[rmin][j]);
+            tel--;
+        }
+        rmin++;
+    }
+    return ;
+}
+
+->sort an array of 0's,1's and 2's
+
+//Method I apply sorting 
+
+//Method II count freq of 0,1 and 2 and fill accordingly
+
+//Method III
+
+public void sortColors(int[] nums){
+    int low=0,mid=0;
+    int high = nums.length-1;
+    while(mid<=high){
+        if(nums[mid]==0){
+            swap(nums,low,mid);
+            low++;
+            mid++;
+        }
+        else if(nums[mid]==1){
+            mid++;
+        }
+        else{
+            swap(nums,mid,high);
+            high--;
+        }
+    }
+}
+
+->trapping rain water
+
+public static int getWater(int arr[], int n){
+	int res = 0;
+
+	int lMax[] = new int[n];
+	int rMax[] = new int[n];
+
+	lMax[0] = arr[0];
+	for(int i = 1; i < n; i++)
+		lMax[i] = Math.max(arr[i], lMax[i - 1]);
+
+
+	rMax[n - 1] = arr[n - 1];
+	for(int i = n - 2; i >= 0; i--)
+		rMax[i] = Math.max(arr[i], rMax[i + 1]);
+
+	for(int i = 1; i < n - 1; i++)
+		res = res + (Math.min(lMax[i], rMax[i]) - arr[i]);
+	
+	return res;
+}
+
+->equilibrium point
+
+public static int eqbpoint(int[] arr){
+    int sum = 0;
+    for(int i=0;i<arr.length;i++){
+        sum += arr[i];
+    }
+    int lsum = 0;
+    for(int i=0;i<arr.length;i++){
+        if(lsum == sum-arr[i]){
+            return i;
+        }
+        lsum += arr[i];
+        sum -= arr[i];
+    }
+    return -1;
+}
+
+->kadane's algorithm (Maximum subarray sum)
+
+public static int maximumsubarray(int[] arr){
+    int res = arr[0];
+    int maxending = arr[0];
+    for(int i=1;i<arr.length;i++){
+        //maxending is maximum sum ending with current element
+        maxending = Math.max(maxending+arr[i],arr[i]); 
+        res = Math.max(res,maxending);
+    }
+    return res;
+}
+
+->leaders in an array
+
+public static void leaders(int[] arr){
+    int curr_ldr = arr[arr.length-1];
+    System.out.print(curr_ldr);
+    for(int i=arr.length-2;i>=0;i--){
+        if(arr[i]>curr_ldr){
+            curr_ldr = arr[i];
+            System.out.print(curr_ldr);
+        }
+    }
+    return ;
+}
+
+->missing numbers in an array
+
+public static int MissingNumber(int[] arr,int n){
+   int res = 0;
+   for(int i=0;i<arr.length;i++){
+       res = res^arr[i];
+   }
+   for(int i=1;i<=n;i++){
+       res = res^i;
+   }
+   return res;
+}
+
+->subarray with given sum
+->count triplets
+->number of pairs
+->inversion of array
+->convert array into zig zag fashion
+->last index of 1
+->largest number formed from an array
+->stock buy and sell
+->pythagorean triplet
+->chocolate distribution problem
+->minimum platforms
+->reverse array in groups
+->kth smallest element
+->rearrange arrays alternatively
+->merge two sorted arrays
+->element with left side smaller and right side greater

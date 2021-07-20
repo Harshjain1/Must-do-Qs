@@ -528,6 +528,63 @@ public static boolean findele(int[][] matrix,int target){
     return false;
 }
 
+->majority element I
+
+//method I
+at every element count it frequency
+and as you find the freq greater than half the size
+of array return that element
+
+//method II
+use a hashmap and fill the key value pairs
+in it and at last traverse around the value
+
+public static int findmajority(int[] arr){
+    int count = 0;
+    int res = 0;
+    for(int ele : arr){
+        if(count==0){
+            res = ele;
+        }
+        if(ele == res){
+            count+=1;
+        }
+        else{
+            count-=1;
+        }
+    }
+    return res;
+}
+
+->majority element II
+
+public static void majorityelementII(int[] arr){
+    int c1=0,c2=0;
+    int e1=-1,e2=-1;
+    for(int ele : arr){
+        if(c1==0){
+            e1 = ele;
+            c1 = 1;
+        }
+        else if(c2==0){
+            e2 = ele;
+            c2 = 1;
+        }
+        else if(e1==ele){
+            c1 += 1;
+        }
+        else if(e2==ele){
+            c2 += 1;
+        }
+        else{
+            c1 -= 1;
+            c2 -= 1;
+        }
+    }
+    System.out.print(e1+" "+e2);
+    return ;
+}
+
 ->count triplets
 ->number of pairs
 ->convert array into zig zag fashion

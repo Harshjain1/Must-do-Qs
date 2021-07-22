@@ -96,3 +96,194 @@ public static int[] rightsmaller(int[] arr){
     }
     return res;
 }
+
+
+->stack using two queue
+
+//push efficient
+public static class StackFromQueue{
+    Queue<Integer> mainq;
+    Queue<Integer> childq;
+    
+    public StackFromQueue(){
+        mainq = new ArrayDeque<>();
+        childq = new ArrayDeque<>();
+    }
+    
+    int size(){
+        return mainq.size();
+    }
+    
+    void push(int num){
+        mainq.add(num);
+        return ;
+    }
+    
+    int pop(){
+        if(mainq.size()==0){
+            System.out.print("Underflow");
+            return -1;
+        }
+        while(mainq.size()>1){
+            childq.add(mainq.remove());
+        }
+        int val = mainq.remove();
+        while(childq.size()>0){
+            mainq.add(childq.remove());
+        }
+        return val;
+    }
+    
+    int top(){
+        if(mainq.size()==0){
+            System.out.print("Underflow");
+            return -1;
+        }
+        while(mainq.size()>1){
+            childq.add(mainq.remove());
+        }
+        int val = mainq.peek();
+        childq.add(mainq.remove());
+        while(childq.size()>0){
+            mainq.add(childq.remove());
+        }
+        return val;
+    }
+}
+
+//pop efficient
+public static class StackFromQueue{
+    Queue<Integer> mainq ;
+    Queue<Integer> childq;
+    
+    public StackFromQueue(){
+        mainq = new ArrayDeque<>();
+        childq = new ArrayDeque<>();
+    }
+    
+    void push(int val){
+        childq.add(val);
+        while(mainq.size()>0){
+            childq.add(mainq.remove());
+        }
+        mainq = childq;
+        childq = new ArrayDeque<>();
+        return ;
+    }
+    
+    int pop(){
+        if(mainq.size()==0){
+            System.out.print("underflow");
+            return -1;
+        }
+        return mainq.remove();
+    }
+    
+    int top(){
+        if(mainq.size()==0){
+            System.out.print("underflow");
+            return -1;
+        }
+        return mainq.peek();
+    }
+    
+    int size(){
+        return mainq.size();
+    }
+}
+
+->queue using two stack
+
+//add efficient
+public static void QueueFromStack{
+    Stack<Integer> mains;
+    Stack<Integer> childs;
+    QueueFromStack(){
+        mains = new Stack<>();
+        childs = new Stack<>();
+    }
+    
+    void add(int val){
+        mains.push(val);
+        return ;
+    }
+    
+    int remove(){
+        if(mains.size()==0){
+            System.out.print("Queue Underflow");
+            return -1;
+        }
+        while(mains.size()>1){
+            childs.push(mains.pop());
+        }
+        int val = mains.pop();
+        while(childs.size()>0){
+            mains.push(childs.pop());
+        }
+        return val;
+    }
+    
+    int peek(){
+        if(mains.size()==0){
+            System.out.print("Queue Underflow");
+            return -1;
+        }
+        while(mains.size()>1){
+            childs.push(mains.pop());
+        }
+        int val = mains.peek();
+        childs.push(mains.pop());
+        while(childs.size()>0){
+            mains.push(childs.pop());
+        }
+        return val;
+    }
+    
+    int size(){
+        return mains.size();
+    }
+}
+
+//remove efficient
+public static void QueueFromStack{
+    Stack<Integer> mains;
+    Stack<Integer> childs;
+    
+    QueueFromStack(){
+        mains = new Stack<>();
+        childs = new Stack<>();
+    }
+    
+    int remove(){
+        if (mainS.size() == 0){
+            System.out.println("Queue underflow");
+            return -1;
+        }
+        int val = mains.pop();
+        return val;
+    }
+    
+    void add(int val){
+        while(mains.size()>0){
+            childs.push(helpers.pop());
+        }
+        childs.push(val);
+        while(childs.size()>0){
+            mains.push(childs.pop());
+        }
+        return ;
+    }
+    
+    int peek(){
+        if (mainS.size() == 0){
+            System.out.println("Queue underflow");
+            return -1;
+        }
+        int val = mains.peek();
+        return val;
+    }
+    
+    int size(){
+        return mains.size();
+    }
+}

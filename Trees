@@ -340,6 +340,31 @@ public static Node construct(int[] in,int[] pre,HashMap<Integer,Integer> mp,int 
     return root;
 }
 
+->construct binary tree from postorder and inorder
+
+public static Node createTree(int[] in,int[] post){
+    HashMap<Integer,Integer> mp = new HashMap<>();
+    for(int i=0;i<in.length;i++){
+        mp.put(in[i],i);
+    }
+    postidx = post.length-1;
+    Node root = construct(in,post,mp,0,in.length-1);
+    return root;
+}
+
+static int postidx;
+
+public static Node construct(int[] in,int[] post,HashMap<Integer,Integer> mp,int is,int ie){
+    if(is>ie){
+        return null;
+    }
+    
+    Node root = new Node(post[postidx--]);
+    int idx = mp.get(root.val);
+    root.right = construct(in,post,mp,idx+1,ie);
+    root.left = construct(in,post,mp,is,idx-1);
+    return root;
+}
 ->check for BST
 
 //method I

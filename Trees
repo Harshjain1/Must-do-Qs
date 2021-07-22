@@ -1,0 +1,199 @@
+->left view of binary tree
+
+public static void leftview(Node root){
+    if(root==null){
+        return ;
+    }
+    Queue<Node> qu = new ArrayDeque<>();
+    qu.add(root);
+    while(qu.size()>0){
+        int count = qu.size();
+        for(int i=0;i<count;i++){
+            Node curr = qu.remove();
+            if(i==0){
+                System.out.print(curr.data);
+            }
+            if(curr.left!=null){
+                qu.add(curr.left);
+            }
+            if(curr.right!=null){
+                qu.add(curr.right);
+            }
+        }
+        System.out.println();
+    }
+}
+
+->right view of binary tree
+
+public static void rightview(Node root){
+    if(root==null){
+        return ;
+    }
+    Queue<Node> qu = new ArrayDeque<>();
+    qu.add(root);
+    while(qu.size()>0){
+        int count = qu.size();
+        for(int i=0;i<count;i++){
+            Node curr = qu.remove();
+            if(i==count-1){
+                System.out.print(curr.data);
+            }
+            if(curr.left!=null){
+                qu.add(curr.left);
+            }
+            if(curr.right!=null){
+                qu.add(curr.right);
+            }
+        }
+        System.out.println();
+    }
+    return ;
+}
+
+->height of binary tree
+
+public static int height(Node root){
+    if(root==null){
+        return -1;
+    }
+    int lh = height(root.left);
+    int rh = height(root.right);
+    return Math.max(lh,rh)+1;
+}
+
+->diameter of binary tree
+
+//method I
+public static int diameter(Node root){
+    if(root==null){
+        return 0;
+    }
+    int d1 = diameter(root.left);
+    int d2 = diameter(root.right);
+    int d3 = 2 + height(root.left) + height(root.right);
+    return Math.max(d3,Math.max(d1,d2));
+}
+
+//method II
+static int dia ;
+public static int heightfordiameter(Node root){
+    if(root==null){
+        return -1;
+    }
+    int lh = heightfordiameter(root.left);
+    int rh = heightfordiameter(root.right);
+    dia = Math.max(lh+rh+2,dia);
+    return Math.max(lh,rh)+1;
+}
+
+//method III
+static class DiaPair{
+    int dia;
+    int ht;
+    
+    public DiaPair(){
+        this.dia = 0;
+        this.ht = -1;
+    }
+}
+
+public static DiaPair diameter(Node root){
+    if(root==null){
+        return new DiaPair();
+    }
+    DiaPair lres = diameter(root.left);
+    DiaPair rres = diameter(root.right);
+    DiaPair mres = new DiaPair();
+    mres.ht = Math.max(lres.ht,rres.ht)+1;
+    mres.dia = Math.max(lres.ht+rres.ht+2,Math.max(lres.dia,rres.dia));
+    return mres;
+}
+
+->LCA of a BST
+
+//method I
+public static ArrayList<Integer> nodetorootpath(Node root,int val){
+    if(root==null){
+        return new ArrayList<>();
+    }
+    if(root.data==val){
+        ArrayList<Integer> bres = new ArrayList<>();
+        bres.add("");
+        return bres;
+    }
+    ArrayList<Integer> lres = nodetorootpath(root.left,n);
+    if(lres.size()>0){
+        lres.add(root);
+        return lres;
+    }
+    ArrayList<Integer> rres = nodetorootpath(root.right,n);
+    if(rres.size()>0){
+        rres.add(root);
+        return rres;
+    }
+    return new ArrayList<>();
+}
+
+public static int LCA(Node root,int n1,int n2){
+    ArrayList<Integer> p1 = nodetorootpath(root,n1);
+    ArrayList<Integer> p2 = nodetorootpath(root,n2);
+    int i = p1.size()-1;
+    int j = p2.size()-1;
+    int res = -1;
+    while(i>=0 && j>=0 && p1.get(i)==p2.get(j)){
+        res = p2.get(j);
+        i--;
+        j--;
+    }
+    return res;
+}
+
+//method II
+public static Node LCA(Node root,int n1,int n2){
+    if(root==null){
+        return null;
+    }
+    if(root.key==n1 || root.key==n2){
+        return root;
+    }
+    Node lres = LCA(root.left,n1,n2);
+    Node rres = LCA(root.right,n1,n2);
+    if(lres!=null && rres!=null){
+        return root;
+    }
+    if(lres!=null){
+        return lres;
+    }
+    else{
+        return rres;
+    }
+}
+
+->check for BST
+
+//method I
+public static boolean isBST(Node root,int minval,int maxval){
+    if(root==null){
+        return true;
+    }
+    return (root.data>minval)&&(root.data<maxval)&&
+    (isBST(root.left,minval,root.data))&&
+    (isBST(root.right,root.data,maxval));
+}
+
+//method II
+static int prev ; //initialize prev with Integer.MIN_VALUE
+public static boolean isBST(Node root){
+    if(root==null){
+        return true;
+    }
+    if(isBST(root.left)==false){
+        return false;
+    }
+    if(root.key<=prev){
+        return false;
+    }
+    prev = root.key;
+    return isBST(root.right);
+}

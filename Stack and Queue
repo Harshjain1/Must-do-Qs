@@ -287,3 +287,12 @@ public static void QueueFromStack{
         return mains.size();
     }
 }
+
+->minimum element from stack
+->LRU cache
+->LFU 
+->circular tour
+->first non repeating character from stream
+->rotten oranges
+->maximum of all subarrays of size k
+->sliding window maximum

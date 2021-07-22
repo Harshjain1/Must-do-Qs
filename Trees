@@ -1,3 +1,119 @@
+->level order traversal linewise 
+
+//method I
+public static void levelOrder(Node root){
+    if(root==null){
+        return ;
+    }
+    Queue<Node> mainq = new ArrayDeque<>();
+    Queue<Node> helperq = new ArrayDeque<>();
+    mainq.add(root);
+    while(mainq.size()>0){
+        Node curr = mainq.remove();
+        System.out.print(curr.data);
+        if(curr.left!=null){
+            helperq.add(curr.left);
+        }
+        if(curr.right!=null){
+            helperq.add(curr.right);
+        }
+        
+        if(mainq.size()==0){
+            mainq = helperq;
+            helperq = new ArrayDeque<>();
+            System.out.println();
+        }
+    }
+}
+
+//method II
+public static void levelOrder(Node root){
+    if(root==null){
+        return ;
+    }
+    Queue<Node> qu = new ArrayDeque<>();
+    qu.add(root);
+    qu.add(null);
+    while(qu.size()>1){
+        Node curr = qu.remove();
+        if(curr!=null){
+            System.out.print(curr.data);
+            if(curr.left!=null){
+                qu.add(curr.left);
+            }
+            if(curr.right!=null){
+                qu.add(curr.right);
+            }
+        }
+        else{
+            System.out.println();
+            qu.add(null);
+        }
+    }
+}
+
+//method III
+public static void levelOrder(Node root){
+    if(root==null){
+        return ;
+    }
+    Queue<Node> qu = new ArrayDeque<>();
+    qu.add(root);
+    while(qu.size()>0){
+        int count = qu.size();
+        for(int i=0;i<count;i++){
+            Node curr = qu.remove();
+            System.out.print(curr.data+" ");
+            if(curr.left!=null){
+                qu.add(curr.left);
+            }
+            if(curr.right!=null){
+                qu.add(curr.right);
+            }
+        }
+        System.out.println();
+    }
+    return ;
+}
+
+-> level Order traversal in spiral form
+
+public static void levelOrder(Node root){
+    Stack<Node> mains = new Stack<>();
+    Stack<Node> helpers = new Stack<>();
+    mains.push(root);
+    int level = 0;
+    while(mains.size()>0){
+        Node curr = mains.pop();
+        if(level%2==0){
+            System.out.print(curr.data);
+            if(curr.left!=null){
+                helpers.push(curr.left);
+            }
+            if(curr.right!=null){
+                helpers.push(curr.right);
+            }
+        }
+        else{
+            System.out.print(curr.data);
+            if(curr.right!=null){
+                helpers.push(curr.right);
+            }
+            if(curr.left!=null){
+                helpers.push(curr.left);
+            }
+        }
+        
+        if(mains.size()==0){
+            System.out.println();
+            level++;
+            Stack<Node> temp = mains;
+            mains = helpers;
+            helpers = temp;
+        }
+    }
+}
+
 ->left view of binary tree
 
 public static void leftview(Node root){

@@ -4,16 +4,13 @@
 
 ->print a binary tree in vertical order
 
-->check trees are identical or not
-->check trees are mirror of each other
 ->maximum path sum of binary tree
 ->number of leaf nodes
 
-->Inorder Traversal (with recursion and without recursion) 
-->Preorder Traversal (with recursion and without recursion) 
-->Postorder Traversal (with recursion and without recursion)  
+->Inorder Traversal (without recursion) 
+->Preorder Traversal (without recursion) 
+->Postorder Traversal (without recursion)  
 
-->Symmetric Binary Tree 
 ->Flatten Binary Tree to LinkedList 
 
 ->Search given Key in BST 
@@ -454,6 +451,73 @@ public static Node LCA(Node root,int n1,int n2){
     else{
         return rres;
     }
+}
+
+->Recursive Inorder traversal
+
+public static void inorder(Node root){
+    if(root==null){
+        return ;
+    }
+    inorder(root.left);
+    System.out.print(root.data);
+    inorder(root.right);
+}
+
+->Recursive Preorder traversal
+
+public static void preorder(Node root){
+    if(root==null){
+        return ;
+    }
+    System.out.print(root.data);
+    preorder(root.left);
+    preorder(root.right);
+}
+
+->Recursive Postorder traversal
+
+public static void postorder(Node root){
+    if(root==null){
+        return ;
+    }
+    postorder(root.left);
+    postorder(root.right);
+    System.out.print(root.data);
+}
+
+->Trees are identical or not
+
+public static boolean IdenticalTree(Node root1,Node root2){
+    if(root1==null && root2==null){
+        return true;
+    }
+    if(root1!=null && root2!=null && root1.data==root2.data){
+        return IdenticalTree(root1.left,root2.left)
+        && IdenticalTree(root1.right,root2.right);
+    }
+    else{
+        return false;
+    }
+}
+
+->Trees are symmetric or not
+
+public static boolean IsSymmetric(Node root1,Node root2){
+    if(root1==null && root2==null){
+        return true;
+    }
+    if(root1!=null && root2!=null){
+        return IsSymmetric(root1.left,root2.right)
+        && IsSymmetric(root1.right,root2.left);
+    }
+    else{
+        return false;
+    }
+}
+
+public static boolean issymmetric(Node root){
+    return IsSymmetric(root.left,root.right);
 }
 
 ->construct binary tree from preorder and inorder

@@ -7,9 +7,6 @@
 ->maximum path sum of binary tree
 ->number of leaf nodes
 
-->Inorder Traversal (without recursion) 
-->Preorder Traversal (without recursion) 
-->Postorder Traversal (without recursion)  
 
 ->Flatten Binary Tree to LinkedList 
 
@@ -196,6 +193,48 @@ public static void rightview(Node root){
         System.out.println();
     }
     return ;
+}
+
+->Iterative inorder preorder postorder
+
+public static class Pair {
+    Node node;
+    int state;
+
+    public Pair(Node node, int state) {
+        this.node = node;
+        this.state = state;
+    }
+}
+
+public static void iterativePrePostInTraversal(Node node) {
+    Stack<Pair> st = new Stack<>();
+
+    ArrayList<Integer> pre = new ArrayList<>();
+    ArrayList<Integer> in = new ArrayList<>();
+    ArrayList<Integer> post = new ArrayList<>();
+
+    st.push(new Pair(node, 0));
+
+    while(st.size() > 0) {
+        Pair p = st.peek();
+        if(p.state == 0) {
+            pre.add(p.node.data);
+            p.state++;
+            if(p.node.left != null) {
+                st.push(new Pair(p.node.left, 0));
+            }
+        } else if(p.state == 1) {
+            in.add(p.node.data);
+            p.state++;
+            if(p.node.right != null) {
+                st.push(new Pair(p.node.right, 0));
+            }
+        } else {
+            post.add(p.node.data);
+            st.pop();
+        }
+    }
 }
 
 ->height of binary tree
